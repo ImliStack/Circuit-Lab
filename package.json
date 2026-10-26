@@ -1,0 +1,17 @@
+{
+  "name": "circuit-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5182",
+    "build": "vite build",
+    "preview": "vite preview --port 5182"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  }
+}

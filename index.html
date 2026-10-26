@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Circuit Lab</title>
+    <meta name="description" content="Learn beginner electricity on a 3D workbench: Ohm's law, series and parallel, LEDs and resistors, with real values from a real circuit solver. For Class 8–10." />
+    <meta name="theme-color" content="#f5f0e6" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script>
+      // Apply the saved theme before first paint
+      try { const t = localStorage.getItem('circuit-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+    </script>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <aside class="sidebar" aria-label="Lessons">
+        <header class="brand">
+          <img src="/logo.svg" width="30" height="30" alt="" />
+          <span class="brand-name">Circuit Lab</span>
+        </header>
+        <div class="switch" role="group" aria-label="Chapter" id="chapter">
+          <button type="button" data-ch="electricity" class="is-on">Electricity</button>
+          <button type="button" data-ch="magnetism">Magnetism</button>
+        </div>
+        <div class="progress" id="progress"></div>
+        <nav class="nav-scroll">
+          <div class="nav-label">Lessons</div>
+          <ol class="lessons" id="lessons"></ol>
+          <div class="nav-label">On this bench</div>
+          <ul class="bench-parts" id="bench-parts"></ul>
+        </nav>
+        <footer class="side-foot">
+          <button class="link" id="reset-progress" type="button">Reset progress</button>
+          <span>NCERT Class 8–10</span>
+        </footer>
+      </aside>
+
+      <main class="stage" id="stage" aria-label="3D workbench">
+        <div class="bench" id="bench"></div>
+        <svg class="overlay" id="overlay" aria-hidden="true"></svg>
+        <div class="pins" id="pins"></div>
+
+        <div class="quick" id="quick" aria-label="Parts in this lesson"></div>
+
+        <div class="tool-col" aria-label="View tools">
+          <div class="tool-group">
+            <button class="tool" type="button" id="t-zoom-in" data-tip="Zoom in"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M11 8v6M8 11h6"/></svg></button>
+            <button class="tool" type="button" id="t-zoom-out" data-tip="Zoom out"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M8 11h6"/></svg></button>
+            <button class="tool" type="button" id="t-fit" data-tip="Fit the circuit (R)"><svg viewBox="0 0 24 24"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"/></svg></button>
+          </div>
+          <div class="tool-group">
+            <button class="tool is-on" type="button" id="t-labels" data-tip="Part labels" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M4 5h10l5 7-5 7H4z"/><circle cx="9" cy="12" r="1.4"/></svg></button>
+            <button class="tool is-on" type="button" id="t-flow" data-tip="Moving charges" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M3 12h18"/><circle cx="7" cy="12" r="1.8" class="f"/><circle cx="12" cy="12" r="1.8" class="f"/><circle cx="17" cy="12" r="1.8" class="f"/></svg></button>
+          </div>
+          <div class="tool-group">
+            <button class="tool" type="button" id="t-theme" data-tip="Dark / light"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+            <button class="tool" type="button" id="t-shot" data-tip="Save a picture"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
+          </div>
+        </div>
+
+        <div class="view-bar">
+          <div class="view-pill" role="group" aria-label="Camera">
+            <button type="button" id="v-left" data-tip="Turn left (Q)"><svg viewBox="0 0 24 24"><path d="M5 9a8 8 0 1 1 1 7"/><path d="M5 4v5h5"/></svg></button>
+            <span class="deg" id="v-deg">0°</span>
+            <button type="button" id="v-right" data-tip="Turn right (E)"><svg viewBox="0 0 24 24"><path d="M19 9a8 8 0 1 0-1 7"/><path d="M19 4v5h-5"/></svg></button>
+            <i></i>
+            <button type="button" class="txt" data-view="iso">Bench</button>
+            <button type="button" class="txt" data-view="front">Front</button>
+            <button type="button" class="txt" data-view="top">Top</button>
+          </div>
+          <p class="caption" id="caption">Click any part to see what it does.</p>
+        </div>
+
+        <button class="edge-toggle is-left" id="edge-left" type="button" data-tip="Hide lessons" aria-label="Hide lessons"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button>
+        <button class="edge-toggle is-right" id="edge-right" type="button" data-tip="Hide panel" aria-label="Hide panel"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button>
+        <div class="tip" id="tip" hidden></div>
+        <div class="toast" id="toast" role="status" hidden></div>
+      </main>
+
+      <section class="panel" id="panel" aria-label="Lesson"></section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+// What each part does, in plain words. Live numbers come from part.facts().
+
+export const INFO = {
+  battery: {
+    latin: 'pushes the charge',
+    eyebrow: 'Source',
+    title: 'Cells and battery',
+    body: 'A cell pushes charge round a circuit. Its push is its voltage: 1.5 V per dry cell. Cells joined end to end (in series) add up — four cells make 6 V. A battery is just several cells together.',
+    tip: 'The longer line in the symbol is the + terminal.',
+  },
+  plugkey: {
+    latin: 'on / off',
+    eyebrow: 'Switch',
+    title: 'Plug key',
+    body: 'Two brass blocks with a gap between them. Push the brass plug into the gap and the blocks are joined — the circuit is closed and current flows. Pull it out and the circuit is open.',
+    tip: 'Press Run to put the plug in.',
+  },
+  ammeter: {
+    latin: 'reads current',
+    eyebrow: 'Meter',
+    title: 'Ammeter',
+    body: 'Measures current — how much charge flows past each second, in ampere (A). It must be connected in series, so the same current that flows through the circuit also flows through the meter.',
+    tip: 'Current goes in at the red (+) terminal and out at the black (−).',
+  },
+  voltmeter: {
+    latin: 'reads voltage',
+    eyebrow: 'Meter',
+    title: 'Voltmeter',
+    body: 'Measures potential difference (voltage) between two points, in volt (V). It is connected in parallel — across the part — and has a very high resistance so it takes almost no current.',
+    tip: 'Red (+) goes to the side nearer the + of the cells.',
+  },
+  resistor: {
+    latin: 'limits current',
+    eyebrow: 'Component',
+    title: 'Resistor',
+    body: 'Resists the flow of current and turns electrical energy into heat. Its resistance, in ohm (Ω), is printed as coloured bands: two digits, then a multiplier, then the tolerance.',
+    tip: 'Read the bands from the end that has a band closest to the edge.',
+  },
+  bulb: {
+    latin: 'glows with power',
+    eyebrow: 'Load',
+    title: 'Torch bulb',
+    body: 'Current heats a very thin coiled tungsten filament until it glows white-hot. More power through the filament means a brighter bulb. Power P = V × I.',
+    tip: 'Rated 6 V, 3 W: at 6 V it takes 0.5 A and glows fully.',
+  },
+  led: {
+    latin: 'one-way light',
+    eyebrow: 'Component',
+    title: 'LED',
+    body: 'A light-emitting diode lets current flow only one way: in at the long leg (anode, +) and out at the short leg (cathode, −, next to the flat edge). It needs about 2 V to start glowing, and a resistor to stop too much current.',
+    tip: 'Brightness grows with current. Above ~30 mA it overheats.',
+  },
+  board: {
+    latin: 'runs the sketch',
+    eyebrow: 'Controller',
+    title: 'Microcontroller board',
+    body: 'A tiny computer on a board. You write a short program (a sketch), upload it, and the board switches its pins between 0 V (LOW) and 5 V (HIGH) to control LEDs, buzzers and motors.',
+    tip: 'The small "L" LED on the board is wired to pin 13.',
+  },
+  breadboard: {
+    latin: 'joins the parts',
+    eyebrow: 'Prototyping',
+    title: 'Breadboard',
+    body: 'A board full of holes with metal clips hidden underneath. Every five holes in a column are joined, so parts pushed into the same column are connected — no soldering needed.',
+    tip: 'The two sides (a–e and f–j) are not joined across the middle gap.',
+  },
+  button: {
+    latin: 'press to close',
+    eyebrow: 'Switch · Lesson 4',
+    title: 'Push button',
+    body: 'A switch that closes only while you press it, and springs open again when you let go. Used for doorbells and keyboards.',
+  },
+  pot: {
+    latin: 'turn to change R',
+    eyebrow: 'Variable resistor · Lesson 6',
+    title: 'Potentiometer',
+    body: 'Turn the knob to change the resistance between the middle leg and an end leg. Used as a volume or brightness control.',
+  },
+  ldr: {
+    latin: 'senses light',
+    eyebrow: 'Sensor · Lesson 7',
+    title: 'Light-dependent resistor',
+    body: 'Its resistance falls when light falls on it. Street lights use one to switch on automatically at dusk.',
+  },
+  buzzer: {
+    latin: 'makes a tone',
+    eyebrow: 'Output · Lesson 8',
+    title: 'Piezo buzzer',
+    body: 'Turns a quickly switching voltage into sound. The faster the switching, the higher the note.',
+  },
+  lamp: {
+    latin: 'the room light',
+    eyebrow: 'Prop',
+    title: 'Desk lamp',
+    body: 'Lights the bench. In the light-sensor lesson its brightness is the daylight that falls on the LDR.',
+  },
+};
